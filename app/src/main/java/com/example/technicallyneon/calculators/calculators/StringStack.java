@@ -14,7 +14,7 @@ public class StringStack
 
     }
 
-    public void add(String item)
+    public void push(String item)
     {
         if (top == null)
             top = new Node(item, null);

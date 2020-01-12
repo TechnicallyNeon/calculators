@@ -35,6 +35,10 @@ public class PrefixActivity extends AppCompatActivity
         resultView = findViewById(R.id.prefix_result_view);
     }
 
+    /**
+     * Submit button's onclick method
+     * @param v - View object used by the submit button
+     */
     public void submit(View v)
     {
         String[] expressionArr = CalculatorUtility.stringToArray(rawExpression.getText().toString());
@@ -57,18 +61,23 @@ public class PrefixActivity extends AppCompatActivity
         } catch (IllegalArgumentException e1)
         {
             resultView.setText("Error reading, please use spaces.");
+        } catch (ArithmeticException e2)
+        {
+            resultView.setText("Undefined");
         }
     }
 
-    public static int calculate(String[] input) throws ImproperOperandCountException
+    private static int calculate(String[] input) throws ImproperOperandCountException,
+            IllegalArgumentException, ArithmeticException
     {
-        StringStack operands = new StringStack();
+        StringStack operands = new StringStack(); // new stack
+        // read array backwards
         for (int i = input.length - 1; i >= 0; i--)
         {
             String curr = input[i];
-            if (!CalculatorUtility.isOp(curr)) // if an operand
-                operands.add(curr);
-            else if (CalculatorUtility.isOp(curr))// if an operator
+            if (!CalculatorUtility.isOp(curr)) // if an operand, add to stack
+                operands.push(curr);
+            else if (CalculatorUtility.isOp(curr))// if an operator, pop and evaluate
             {
                 int left;
                 try
@@ -101,14 +110,18 @@ public class PrefixActivity extends AppCompatActivity
                         result = left * right;
                         break;
                     case '/':
+                        if (right == 0)
+                            throw new ArithmeticException();
                         result = left / right;
                         break;
                     case '%':
+                        if (right == 0)
+                            throw new ArithmeticException();
                         result = left % right;
                         break;
                 }
 
-                operands.add(String.valueOf(result));
+                operands.push(String.valueOf(result));
             } else
             {
                 throw new IllegalArgumentException();
