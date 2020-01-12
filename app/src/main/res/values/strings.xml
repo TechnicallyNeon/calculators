@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Calculator List</string>
+    <string name="main_activity_title">Select a Calculator</string>
+    <string name ="valid_operators">\'+\', \'-\', \'*\', \'/\', and \'%\'</string>
+    <string name="calculator_activity_subscript">Valid operators are \'+\', \'-\', \'*\', \'/\', and \'%\'</string>
+    <string name="default_expression">Enter an expression</string>
+    <string name="submit">Submit</string>
+    <string name="default_result">Result: </string>
+    <string name="prefix_activity_title">Prefix Calculator</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.technicallyneon.calculators;
+package com.example.technicallyneon.calculators.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+
+import com.example.technicallyneon.calculators.R;
 
 
 public class MainActivity extends AppCompatActivity
