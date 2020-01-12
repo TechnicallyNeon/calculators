@@ -9,10 +9,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.technicallyneon.calculators.R;
+import com.example.technicallyneon.calculators.calculators.CalculatorUtility;
 import com.example.technicallyneon.calculators.calculators.ImproperOperandCountException;
-import com.example.technicallyneon.calculators.calculators.PrefixCalculator;
+import com.example.technicallyneon.calculators.calculators.StringStack;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.Scanner;
 
 public class PrefixActivity extends AppCompatActivity
@@ -35,26 +37,88 @@ public class PrefixActivity extends AppCompatActivity
 
     public void submit(View v)
     {
-        Scanner scan = new Scanner(rawExpression.getText().toString());
-        ArrayList<String> expression = new ArrayList<>();
-
-        while (scan.hasNext())
-            expression.add(scan.next());
-
-        String[] expressionArr = new String[expression.size()];
-        expression.toArray(expressionArr);
-        for (int i = 0; i < expression.size(); i++)
+        String[] expressionArr = CalculatorUtility.stringToArray(rawExpression.getText().toString());
+        for (int i = 0 ; i < expressionArr.length; i++)
             Log.i(TAG, expressionArr[i]);
 
-        int result = 0;
+        if (expressionArr.length == 0)
+            return; // don't do anything if input is empty
+
         try
         {
-            result = PrefixCalculator.calculate(expressionArr);
+            int result = calculate(expressionArr);
+            resultView.setText("Result: " + result);
         } catch (ImproperOperandCountException e)
         {
-            Log.i(TAG, "error");
+            if (e.getMessage().equals("Too many"))
+                resultView.setText("Too many operands provided");
+            else
+                resultView.setText("Too few operands provided");
+        } catch (IllegalArgumentException e1)
+        {
+            resultView.setText("Error reading, please use spaces.");
+        }
+    }
+
+    public static int calculate(String[] input) throws ImproperOperandCountException
+    {
+        StringStack operands = new StringStack();
+        for (int i = input.length - 1; i >= 0; i--)
+        {
+            String curr = input[i];
+            if (!CalculatorUtility.isOp(curr)) // if an operand
+                operands.add(curr);
+            else if (CalculatorUtility.isOp(curr))// if an operator
+            {
+                int left;
+                try
+                {
+                    left = Integer.valueOf(operands.pop());
+                } catch (Exception e)
+                {
+                    throw new ImproperOperandCountException("Too few");
+                }
+                int right;
+                try
+                {
+                    right = Integer.valueOf(operands.pop());
+                } catch (Exception e) // if a value is missing, the left value is assumed to be zero
+                {                   // i.e. - 5 = -5
+                    right = left;
+                    left = 0;
+                }
+                int result = 0;
+
+                switch (curr.charAt(0))
+                {
+                    case '+':
+                        result = left + right;
+                        break;
+                    case '-':
+                        result = left - right;
+                        break;
+                    case '*':
+                        result = left * right;
+                        break;
+                    case '/':
+                        result = left / right;
+                        break;
+                    case '%':
+                        result = left % right;
+                        break;
+                }
+
+                operands.add(String.valueOf(result));
+            } else
+            {
+                throw new IllegalArgumentException();
+            }
         }
 
-        resultView.setText("Result: " + result);
+        int result = Integer.valueOf(operands.pop());
+        // Check to see if any operands remaining
+        try { operands.pop(); }
+        catch (EmptyStackException e) { return result; } // if none remaining, return
+        throw new ImproperOperandCountException("Too many"); // if some remaining throw
     }
 }

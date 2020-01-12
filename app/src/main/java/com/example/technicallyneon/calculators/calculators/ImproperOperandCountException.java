@@ -1,8 +1,8 @@
 package com.example.technicallyneon.calculators.calculators;
 
-public class ImproperOperandCountException extends Exception
+public class ImproperOperandCountException extends RuntimeException
 {
-    ImproperOperandCountException(String message)
+    public ImproperOperandCountException(String message)
     {
         super(message);
     }

@@ -1,5 +1,7 @@
 package com.example.technicallyneon.calculators.calculators;
 
+import java.util.EmptyStackException;
+
 public class StringStack
 {
     /**
@@ -26,7 +28,7 @@ public class StringStack
     public String pop()
     {
         if (top == null)
-            return null;
+            throw new EmptyStackException();
         String result = top.val;
         top = top.next;
         return result;

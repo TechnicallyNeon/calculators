@@ -12,7 +12,7 @@ import com.example.technicallyneon.calculators.R;
 
 public class MainActivity extends AppCompatActivity
 {
-    private Button prefix, infix, postfix;
+    private Button prefix, postfix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity
 
         // Construct objects
         prefix = findViewById(R.id.prefix);
-        infix = findViewById(R.id.infix);
         postfix = findViewById(R.id.postfix);
     }
 
@@ -34,15 +33,11 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    public void runInfix(View v)
-    {
-        Log.i("Main Activity","Running infix calculator...");
-        // TODO move to another activity
-    }
-
     public void runPostfix(View v)
     {
         Log.i("Main Activity","Running postfix calculator...");
-        // TODO move to another activity
+
+        Intent intent = new Intent(this, PostfixActivity.class);
+        startActivity(intent);
     }
 }
