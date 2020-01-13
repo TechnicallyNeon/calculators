@@ -12,6 +12,7 @@ import com.example.technicallyneon.calculators.R;
 
 public class MainActivity extends AppCompatActivity
 {
+    private static final String TAG = "Main Activity";
     private Button prefix, postfix;
 
     @Override
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity
 
     public void runPrefix(View v)
     {
-        Log.i("Main Activity","Running prefix calculator...");
+        Log.i(TAG,"Running prefix calculator...");
 
         Intent intent = new Intent(this, PrefixActivity.class);
         startActivity(intent);
@@ -35,9 +36,17 @@ public class MainActivity extends AppCompatActivity
 
     public void runPostfix(View v)
     {
-        Log.i("Main Activity","Running postfix calculator...");
+        Log.i(TAG,"Running postfix calculator...");
 
         Intent intent = new Intent(this, PostfixActivity.class);
+        startActivity(intent);
+    }
+
+    public void runRandomInt(View v)
+    {
+        Log.i(TAG,"Running postfix calculator...");
+
+        Intent intent = new Intent(this, RandomIntActivity.class);
         startActivity(intent);
     }
 }

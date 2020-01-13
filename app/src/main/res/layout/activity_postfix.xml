@@ -39,7 +39,7 @@
         android:id="@+id/postfix_raw_expression"
         android:textSize="24sp"
         android:textStyle="normal"
-        android:textAppearance="@string/default_expression"/>
+        android:hint="@string/default_expression"/>
 
     <Button
         android:layout_width="match_parent"

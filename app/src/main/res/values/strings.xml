@@ -12,5 +12,5 @@
     <!-- calculator unique strings -->
     <string name="prefix_activity_title">Prefix Calculator</string>
     <string name="postfix_activity_title">Postfix Calculator</string>
-    <string name="title_activity_postfix">PostfixActivity</string>
+    <string name="random_int_activity_title">Random Integer Generator</string>
 </resources>
