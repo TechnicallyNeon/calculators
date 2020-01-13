@@ -31,6 +31,11 @@ public class CalculatorUtility
         return false;
     }
 
+    /**
+     * Separates words in a given String into an array
+     * @param s - String provided
+     * @return an array of the words contained in s
+     */
     public static String[] stringToArray(String s)
     {
         Scanner scan = new Scanner(s);

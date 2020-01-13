@@ -13,9 +13,7 @@ import com.example.technicallyneon.calculators.calculators.CalculatorUtility;
 import com.example.technicallyneon.calculators.calculators.ImproperOperandCountException;
 import com.example.technicallyneon.calculators.calculators.StringStack;
 
-import java.util.ArrayList;
 import java.util.EmptyStackException;
-import java.util.Scanner;
 
 public class PrefixActivity extends AppCompatActivity
 {
@@ -42,8 +40,6 @@ public class PrefixActivity extends AppCompatActivity
     public void submit(View v)
     {
         String[] expressionArr = CalculatorUtility.stringToArray(rawExpression.getText().toString());
-        for (int i = 0 ; i < expressionArr.length; i++)
-            Log.i(TAG, expressionArr[i]);
 
         if (expressionArr.length == 0)
             return; // don't do anything if input is empty
